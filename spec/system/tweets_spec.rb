@@ -14,7 +14,8 @@ RSpec.describe 'ツイート投稿', type: :system do
       fill_in 'Password', with: @user.password
       find('input[name="commit"]').click
       expect(current_path).to habe_content('投稿する')
-      # 新規投稿ページ
+      # 新規投稿ページへのリンクがあることを確認する
+      expect(page).to have_content('投稿する')
       # 投稿ページに移動する
       # フォームに情報を入力する
       # 送信するとTweetモデルのカウントが1上がることを確認する

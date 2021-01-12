@@ -17,6 +17,7 @@ RSpec.describe 'ツイート投稿', type: :system do
       # 新規投稿ページへのリンクがあることを確認する
       expect(page).to have_content('投稿する')
       # 投稿ページに移動する
+      visit new_tweet_path
       # フォームに情報を入力する
       # 送信するとTweetモデルのカウントが1上がることを確認する
       # 投稿完了ページに遷移することを確認する

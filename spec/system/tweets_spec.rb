@@ -9,6 +9,11 @@ RSpec.describe 'ツイート投稿', type: :system do
   context 'ツイート投稿ができるとき' do
     it 'ログインしたユーザーは新規登録できる' do
       # ログインする
+      visit new_user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(current_path).to habe_content('投稿する')
       # 新規投稿ページ
       # 投稿ページに移動する
       # フォームに情報を入力する

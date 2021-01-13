@@ -129,7 +129,7 @@ RSpec.describe 'ツイート削除', type: :system do
     it 'ログインしたユーザーは自らが投稿したツイートの削除ができる' do
       # ツイート1を投稿したユーザーでログインする
       visit new_user_session_path
-      fill_in 'Email', with: @tweet1.user.password
+      fill_in 'Email', with: @tweet1.user.email
       fill_in 'Password', with: @tweet1.user.password
       find('input[name="commit"]').click
       expect(current_path).to eq root_path
@@ -157,7 +157,7 @@ RSpec.describe 'ツイート削除', type: :system do
     it 'ログインしたユーザーは自分以外が投稿したツイートの削除ができない' do
       # ツイート1を投稿したユーザーでログインする
       visit new_user_session_path
-      fill_in 'Email', with: @tweet1.user.password
+      fill_in 'Email', with: @tweet1.user.email
       fill_in 'Password', with: @tweet1.user.password
       find('input[name="commit"]').click
       expect(current_path).to eq root_path
@@ -168,8 +168,15 @@ RSpec.describe 'ツイート削除', type: :system do
     end
     it 'ログインしていないとツイートの削除ボタンがない' do
       # トップページに移動する
+      visit root_path
       # ツイート1に「削除」ボタンが無いことを確認する
+      expect(
+        all(".more")[1].hover
+      ).to have_no_link '削除', href: tweet_path(@tweet1)
       # ツイート2に「削除」ボタンが無いことを確認する
+      expect(
+        all(".more")[0].hover
+      ).to have_no_link '削除', href: tweet_path(@tweet2)
     end
   end
 end
